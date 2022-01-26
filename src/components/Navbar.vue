@@ -27,13 +27,15 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   computed: {
+    ...mapState('auth', ['user']),
+
     routes: function () {
       return this.$router.options.routes.filter(route => (
-        route.meta && route.meta.showNavbar
+        route.meta ? route.meta.showNavbar && (route.role ? route.role.includes(this.user.role) : true) : false
       ))
     }
   },

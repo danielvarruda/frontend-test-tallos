@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   data: () => ({
@@ -72,6 +72,20 @@ export default {
       password: ''
     }
   }),
+
+  created () {
+    if (!(this.roleEditor || this.roleAdmin)) {
+      this.$router.push({ name: 'home' })
+    }
+  },
+
+  computed: {
+    ...mapState('auth', ['user']),
+
+    roleEditor: function () {
+      return ['admin', 'editor'].includes(this.user.role)
+    }
+  },
 
   methods: {
     ...mapActions('users', ['ActionCreateUser']),

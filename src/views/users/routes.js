@@ -20,7 +20,11 @@ export default [
       showNavbar: true,
       title: 'Novo Funcionário',
       icon: 'person_add_alt'
-    }
+    },
+    role: [
+      'admin',
+      'editor'
+    ]
   },
 
   // Detalhar funcionário

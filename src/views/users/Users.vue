@@ -12,38 +12,38 @@
               <th>Nome</th>
               <th class="text-center">Setor</th>
               <th class="text-center">E-mail</th>
-              <th class="text-center">Ações</th>
+              <th class="text-center" v-if="roleReader">Ações</th>
             </tr>
           </thead>
 
           <tbody>
             <tr
-              :key="user._id"
-              v-for="user in users"
+              :key="user_register._id"
+              v-for="user_register in users"
             >
-              <td>{{ user.name }}</td>
-              <td class="text-center">{{ user.sector && firstUpperCase(user.sector) }}</td>
-              <td class="text-center">{{ user.username }}</td>
-              <td class="text-center">
-                <button class="btn btn-sm btn-info p-1">
+              <td>{{ user_register.name }}</td>
+              <td class="text-center">{{ user_register.sector && firstUpperCase(user_register.sector) }}</td>
+              <td class="text-center">{{ user_register.username }}</td>
+              <td class="text-center" v-if="roleReader">
+                <button class="btn btn-sm btn-info p-1" v-if="roleReader">
                   <router-link
                     class="detalhes"
-                    :to="{ name: 'show-user', params: { id: user._id } }"
+                    :to="{ name: 'show-user', params: { id: user_register._id } }"
                   >
                     Detalhes
                   </router-link>
                 </button>
 
-                <button class="btn btn-sm btn-warning p-1" style="margin-left: 5px">
+                <button class="btn btn-sm btn-warning p-1" style="margin-left: 5px" v-if="roleEditor">
                   <router-link
                     class="detalhes"
-                    :to="{ name: 'edit-user', params: { id: user._id } }"
+                    :to="{ name: 'edit-user', params: { id: user_register._id } }"
                   >
                     Editar
                   </router-link>
                 </button>
 
-                <button class="btn btn-sm btn-danger p-1" style="margin-left: 5px" @click.prevent="deleteUser(user._id)">
+                <button class="btn btn-sm btn-danger p-1" style="margin-left: 5px" v-if="roleAdmin" @click.prevent="deleteUser(user._id)">
                   Remover
                 </button>
               </td>
@@ -66,12 +66,24 @@ export default {
   },
 
   computed: {
-    ...mapState('users', ['users'])
+    ...mapState('users', ['users']),
+    ...mapState('auth', ['user']),
+
+    roleReader: function () {
+      return ['admin', 'editor', 'leitor'].includes(this.user.role)
+    },
+
+    roleEditor: function () {
+      return ['admin', 'editor'].includes(this.user.role)
+    },
+
+    roleAdmin: function () {
+      return ['admin'].includes(this.user.role)
+    }
   },
 
   methods: {
-    ...mapActions('users', ['ActionFindUsers']),
-    ...mapActions('users', ['ActionDeleteUser']),
+    ...mapActions('users', ['ActionFindUsers', 'ActionDeleteUser']),
 
     deleteUser: async function (id) {
       try {

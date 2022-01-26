@@ -3,6 +3,8 @@
     <div class="container-fluid p-4">
       <h2>Home</h2>
       <hr>
+
+      <h3>{{ user.name }}</h3>
     </div>
   </div>
 </template>

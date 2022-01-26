@@ -5,8 +5,11 @@ import * as types from './mutations-types'
 
 export const ActionLogin = ({ dispatch }, payload) => {
   return services.auth.login(payload).then(res => {
-    dispatch('ActionSetUser', res.data.user)
-    dispatch('ActionSetToken', res.data.token)
+    const data = res.body.token
+    const dataArray = data.split('.')
+
+    dispatch('ActionSetUser', JSON.parse(atob(dataArray[1])))
+    dispatch('ActionSetToken', res.body.token)
   })
 }
 
