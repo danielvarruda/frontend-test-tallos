@@ -4,7 +4,7 @@
       <h2>Home</h2>
       <hr>
 
-      <h3>{{ user.name }}</h3>
+      <h3>Olá, {{ user.name }}!</h3>
     </div>
   </div>
 </template>
