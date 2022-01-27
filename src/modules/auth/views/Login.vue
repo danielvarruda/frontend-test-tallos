@@ -45,7 +45,7 @@ export default {
         await this.ActionLogin(this.form)
         this.$router.push({ name: 'home' })
       } catch (err) {
-        alert(err.data ? err.data.message : 'Não foi possível realizar login')
+        alert(err.body ? err.body : 'E-mail ou senha incorreta')
       }
     }
   }

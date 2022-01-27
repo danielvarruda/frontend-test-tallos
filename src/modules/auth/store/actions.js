@@ -5,11 +5,15 @@ import * as types from './mutations-types'
 
 export const ActionLogin = ({ dispatch }, payload) => {
   return services.auth.login(payload).then(res => {
-    const data = res.body.token
-    const dataArray = data.split('.')
+    if (res.body.token) {
+      const data = res.body.token
+      const dataArray = data.split('.')
 
-    dispatch('ActionSetUser', JSON.parse(atob(dataArray[1])))
-    dispatch('ActionSetToken', res.body.token)
+      dispatch('ActionSetUser', JSON.parse(atob(dataArray[1])))
+      dispatch('ActionSetToken', res.body.token)
+    } else {
+      return Promise.reject(new Error('Email ou senha incorreta'))
+    }
   })
 }
 

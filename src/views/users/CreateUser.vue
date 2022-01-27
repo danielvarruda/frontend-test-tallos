@@ -28,10 +28,8 @@
                 <div class="form-group mb-1 col-6">
                   <label for="role">Permissão</label>
                   <select id="role" v-model="form.role" class="form-control">
-                    <option value="admin">Administrador</option>
                     <option value="editor">Editor</option>
                     <option value="leitor">Leitor</option>
-                    <option value="usuario">Usuário Comum</option>
                   </select>
                 </div>
               </div>
