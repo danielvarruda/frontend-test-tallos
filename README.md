@@ -27,7 +27,7 @@ npm install && npm run serve
 A pasta node_modules fica dentro do docker pra facilitar a instalação. Logo ela não é criada em sua máquina local. Isso pode gerar alguns erros de importação em sua IDE, mas é algo apenas visual. Caso queira que tudo funcione sem incomodos instale o node j e vue em sua máquina. 
 
 ```sh
-docker cp teste-tallos:/app/node_modules/. ./node_modules)
+npm install
 ```
 
 A Aplicação rodará em:
