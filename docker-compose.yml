@@ -1,11 +1,12 @@
-version: '3'
+version: "3.7"
 
 services:
-  node:
-    image: node:14
+  vue-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vue-app
+    restart: always
     ports:
-      - '8080:8080'
-    volumes:
-      - ./:/app
-    working_dir: /app
-    command: 'npm run serve'
+      - "8080:8080"
+    command: "npm run serve"
